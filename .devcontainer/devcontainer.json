@@ -1,0 +1,37 @@
+// For more on Dev Containers, see https://containers.dev/
+{
+	"name": "DataOps Tutorial",
+	"image": "mcr.microsoft.com/devcontainers/python",
+	"features": {
+		"ghcr.io/devcontainers-contrib/features/homebrew-package:1": {
+			"package": "youplot"
+		}
+	},
+	"containerEnv": {
+		"KAGGLE_CONFIG_DIR": "${containerWorkspaceFolder}"
+	},
+	"postCreateCommand": "make build",
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"ms-vscode.makefile-tools",
+				"Evidence.sqltools-duckdb-driver",
+				"Evidence.evidence-vscode",
+				"mechatroner.rainbow-csv",
+				"github.vscode-github-actions",
+				"tamasfe.even-better-toml",
+				"charliermarsh.ruff"
+			],
+			"settings": {
+				"[python]": {
+					"editor.formatOnSave": true,
+					"editor.codeActionsOnSave": {
+						"source.fixAll": true,
+						"source.organizeImports": true
+					},
+					"editor.defaultFormatter": "charliermarsh.ruff"
+				}
+			}
+		}
+	}
+}
