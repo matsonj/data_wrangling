@@ -1,0 +1,32 @@
+name: Run data pipeline from scratch
+
+on:
+  push:
+  workflow_dispatch:
+
+jobs:
+  run_pipeline:
+    name: Summarize Data
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Install Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: 3.12
+          cache: 'pip'
+      
+      - name: Install Requirements
+        run: pip install .
+
+      - name: Create secrets JSON
+        run: |
+          mkdir $HOME/.kaggle
+          echo "${{ secrets.KAGGLE_KEY }}" | base64 -d > $HOME/.kaggle/kaggle.json
+
+      - name: Calculate Summary and Print Table
+        run: |
+          make build extract
+          duckdb -markdown -cmd ".read iris_summary.sql" >> $GITHUB_STEP_SUMMARY

@@ -1,0 +1,25 @@
+# https://packaging.python.org/en/latest/guides/writing-pyproject-toml/
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "dataops_tutorial"
+version = "0.1.0"
+dependencies = [
+    "kaggle",
+    "ruff",
+    "pre-commit"
+]
+
+
+[project.optional-dependencies]
+plot = [
+    "plotly",
+    "pandas",
+    "pyarrow",
+    "statsmodels",
+    "kaleido",
+    "jinja2",
+]
